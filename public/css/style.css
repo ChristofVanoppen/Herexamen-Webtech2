@@ -5,13 +5,48 @@
 		width: 800px;
 		margin-left: auto;
 		margin-right: auto;
+		margin-top: 100px;
+	}
+	#deel1{
+		height: 200px;
+	}
+	#deel2{
+		height: 200px;
+	}
+	#deel3{
+		height: 500px;
 	}
 	#belgie{
 		width: 100px;
 		height: 60px;
+		float:left;
+		margin-right: 50px;
 	}
 	#brasilie{
 		width: 100px;
 		height: 60px;
+		float: right;
+	}
+	h1{
+		float:left;
+	}
+	.scores{
+		float:left;
+		margin-left: 20px;
+		margin-right: 20px;	}
+	h3{
+		float: left;
+		margin-right: 50px;
+	}
+	#buttonPlus1{
+		float: left;
+	}
+	#buttonMin1{
+		float: left;
+	}
+	#buttonPlus2{
+		float: right;
+	}
+	#buttonMin2{
 		float: right;
 	}
