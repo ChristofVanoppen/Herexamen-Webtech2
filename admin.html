@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="http://meyerweb.com/eric/tools/css/reset/">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+
+</head>
+<body>
+	<div id="wrapper">
+
+		<div id="deel1">
+			<img src="https://pbs.twimg.com/profile_images/437613241/belgie.gif" alt="belgie" id="belgie">
+			<button type="button" id="buttonPlus1">+</button>
+			<button type="button" id="buttonMin1">-</button>
+			<h1>BELGIUM</h1>
+			<h2 class="scores" id="score1">1</h2>
+			<h2 class="scores" id="score2">2</h2>
+			<h1>BRAZIL</h1>
+			<img src="http://www.opverrereis.nl/attachments/Image/Brazilie-vlag.jpg?1379627077964" alt="brasilie" id="brasilie">
+			<button type="button" id="buttonPlus2">+</button>
+			<button type="button" id="buttonMin2">-</button>
+		</div>
+
+		<div id="deel2">
+			<h2 class="scores">1</h2>
+			<h3>TOTAL SHOTS</h3>
+			<h2 class="scores">2</h2>
+			<button type="button">+</button>
+			<button type="button">-</button>
+			<h2 class="scores">1</h2>
+			<h3>FOULS</h3>
+			<h2 class="scores">2</h2>
+			<button type="button">+</button>
+			<button type="button">-</button>
+		</div>
+
+		<div id="deel3">
+			<p>REALTIME UPDATES</p>
+			<div id="chat"></div>
+			<form action="" id="send-message">
+			<input placeholder="text message" size="35" id="message" type="text"></input>
+			<input id="button2" type="submit"></input>
+			</form>
+		</div>
+
+		
+	</div>
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>		
+			<script>
+			
+				$("#buttonPlus1").click(function(){
+					$("#score1").html(function(i, val){
+						return val*1+1
+					});
+
+				});
+
+				$("#buttonMin1").click(function(){
+					$("#score1").html(function(i, val){
+						return val*1-1
+					});
+				});
+
+				jQuery(function($){
+				var socket = io.connect();
+				var $messageForm = $('#send-message');
+				var $messageBox = $('#message');
+				var $chat = $('#chat');	
+
+				$messageForm.submit(function(e){											// vraag stellen in form
+				e.preventDefault();														//geen refresh van pg
+				socket.emit('send message', $messageBox.val());
+				$messageBox.val('');
+				});	
+				
+				socket.on('new message', function(data){
+					$chat.append(data + "<br/>");
+				});
+			});	
+			</script>
+</body>
+</html>
+	
