@@ -24,6 +24,7 @@
 		</div>
 
 		<div id="deel2">
+			
 			<h2 class="scores">1</h2>
 			<h3>TOTAL SHOTS</h3>
 			<h2 class="scores">2</h2>
@@ -34,13 +35,15 @@
 			<h2 class="scores">2</h2>
 			<button type="button">+</button>
 			<button type="button">-</button>
+
 		</div>
 
 		<div id="deel3">
 			<p>REALTIME UPDATES</p>
-			<div id="chat"></div>
+			<div id="scoreboard"></div>
 			<form action="" id="send-message">
-			<input placeholder="text message" size="35" id="message" type="text"></input>
+			<input placeholder="text message" size="10" id="message" type="text"></input>
+			<input placeholder="text message" size="35" id="message2" type="text"></input>
 			<input id="button2" type="submit"></input>
 			</form>
 		</div>
@@ -69,18 +72,31 @@
 				var socket = io.connect();
 				var $messageForm = $('#send-message');
 				var $messageBox = $('#message');
-				var $chat = $('#chat');	
+				var $messageBox2 = $('#message2');
+				var $scoreboard = $('#scoreboard');	
 
-				$messageForm.submit(function(e){											// vraag stellen in form
-				e.preventDefault();														//geen refresh van pg
-				socket.emit('send message', $messageBox.val());
-				$messageBox.val('');
+				$messageForm.submit(function(e){					// vraag stellen in form
+				e.preventDefault();		
+				socket.emit('send tijd', $messageBox.val());
+				$messageBox.val('');								//geen refresh van pg
+				socket.emit('send message', $messageBox2.val());
+				$messageBox2.val('');
 				});	
-				
-				socket.on('new message', function(data){
-					$chat.append(data + "<br/>");
+
+				socket.on('load old msgs', function(docs){									//laden van berichten die voor het inloggen 
+				for(var i=0; i < docs.length; i++){									//er al waren
+					displayMsg(docs[i]);
+				}
 				});
-			});	
+
+				function displayMsg(data){
+				$scoreboard.append(data.tijd + " " + data.message + "<br/>");
+				}	
+
+				socket.on('new message', function(data){
+					displayMsg(data);
+					});
+				});	
 			</script>
 </body>
 </html>
