@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="http://meyerweb.com/eric/tools/css/reset/">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+
+</head>
+<body>
+	<div id="wrapper">
+
+		<div id="deel1">
+			<img src="https://pbs.twimg.com/profile_images/437613241/belgie.gif" alt="belgie" id="belgie">
+
+			<h1>BELGIUM</h1>
+			<h2 class="scores" id="score1">1</h2>
+			<h2 class="scores" id="score2">2</h2>
+			<h1>BRAZIL</h1>
+			<img src="http://www.opverrereis.nl/attachments/Image/Brazilie-vlag.jpg?1379627077964" alt="brasilie" id="brasilie">
+
+		</div>
+
+		<div id="deel2">
+			
+			<h2 class="scores">1</h2>
+			<h3>TOTAL SHOTS</h3>
+			<h2 class="scores">2</h2>
+
+			<h2 class="scores">1</h2>
+			<h3>FOULS</h3>
+			<h2 class="scores">2</h2>
+
+
+		</div>
+
+		<div id="deel3">
+			<p>REALTIME UPDATES</p>
+			<div id="scoreboard"></div>
+		</div>
+
+		
+	</div>
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>		
+			<script>
+			
+				$("#buttonPlus1").click(function(){
+					$("#score1").html(function(i, val){
+						return val*1+1
+					});
+
+				});
+
+				$("#buttonMin1").click(function(){
+					$("#score1").html(function(i, val){
+						return val*1-1
+					});
+				});
+
+				jQuery(function($){
+				var socket = io.connect();
+				var $messageForm = $('#send-message');
+				var $messageBox = $('#message');
+				var $messageBox2 = $('#message2');
+				var $scoreboard = $('#scoreboard');	
+
+				$messageForm.submit(function(e){					// vraag stellen in form
+				e.preventDefault();		
+				socket.emit('send tijd', $messageBox.val());
+				$messageBox.val('');								//geen refresh van pg
+				socket.emit('send message', $messageBox2.val());
+				$messageBox2.val('');
+				});	
+
+				socket.on('load old msgs', function(docs){									//laden van berichten die voor het inloggen 
+				for(var i=0; i < docs.length; i++){									//er al waren
+					displayMsg(docs[i]);
+				}
+				});
+
+				function displayMsg(data){
+				$scoreboard.append(data.tijd + " " + data.message + "<br/>");
+				}	
+
+				socket.on('new message', function(data){
+					displayMsg(data);
+					});
+				});	
+			</script>
+</body>
+</html>
+	
