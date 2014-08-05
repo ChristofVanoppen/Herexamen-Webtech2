@@ -12,15 +12,15 @@
 
 		<div id="deel1">
 			<img src="https://pbs.twimg.com/profile_images/437613241/belgie.gif" alt="belgie" id="belgie">
-			<button type="button" id="buttonPlus1">+</button>
-			<button type="button" id="buttonMin1">-</button>
+			<button id="knop1" type="button">+</button>
+			<button id="knop2" type="button">-</button>
 			<h1>BELGIUM</h1>
-			<h2 class="scores" id="score1">1</h2>
-			<h2 class="scores" id="score2">2</h2>
+			<h2 class="scores" id="getal1">1</h2>
+			<h2 class="scores" id="getal2">1</h2>
 			<h1>BRAZIL</h1>
 			<img src="http://www.opverrereis.nl/attachments/Image/Brazilie-vlag.jpg?1379627077964" alt="brasilie" id="brasilie">
-			<button type="button" id="buttonPlus2">+</button>
-			<button type="button" id="buttonMin2">-</button>
+			<button type="button">+</button>
+			<button type="button">-</button>
 		</div>
 
 		<div id="deel2">
@@ -35,7 +35,6 @@
 			<h2 class="scores">2</h2>
 			<button type="button">+</button>
 			<button type="button">-</button>
-
 		</div>
 
 		<div id="deel3">
@@ -55,26 +54,15 @@
 	<script src="/socket.io/socket.io.js"></script>		
 			<script>
 			
-				$("#buttonPlus1").click(function(){
-					$("#score1").html(function(i, val){
-						return val*1+1
-					});
 
-				});
-
-				$("#buttonMin1").click(function(){
-					$("#score1").html(function(i, val){
-						return val*1-1
-					});
-				});
 
 				jQuery(function($){
 				var socket = io.connect();
 				var $messageForm = $('#send-message');
 				var $messageBox = $('#message');
 				var $messageBox2 = $('#message2');
-				var $scoreboard = $('#scoreboard');	
-
+				var $scoreboard = $('#scoreboard');
+				
 				$messageForm.submit(function(e){					// vraag stellen in form
 				e.preventDefault();		
 				socket.emit('send tijd', $messageBox.val());
@@ -97,6 +85,30 @@
 					displayMsg(data);
 					});
 				});	
+					
+				$(document).ready(function() {
+
+				    var socket = io.connect();
+
+				    $('#knop1').click(function() {
+				        socket.emit('click');
+				    });
+				    $('#knop2').click(function() {
+				        socket.emit('click2');
+				    });
+
+				    socket.on('changeColor', function() {
+				        $("#getal1").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor2', function() {
+				        $("#getal1").html(function(i, val){
+								return val*1-1
+						});
+				    });
+				});		
 			</script>
 </body>
 </html>
