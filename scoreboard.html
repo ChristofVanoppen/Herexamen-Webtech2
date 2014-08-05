@@ -14,8 +14,8 @@
 			<img src="https://pbs.twimg.com/profile_images/437613241/belgie.gif" alt="belgie" id="belgie">
 
 			<h1>BELGIUM</h1>
-			<h2 class="scores" id="score1">1</h2>
-			<h2 class="scores" id="score2">2</h2>
+			<h2 class="scores" id="getal1">1</h2>
+			<h2 class="scores" id="getal2">1</h2>
 			<h1>BRAZIL</h1>
 			<img src="http://www.opverrereis.nl/attachments/Image/Brazilie-vlag.jpg?1379627077964" alt="brasilie" id="brasilie">
 
@@ -30,7 +30,6 @@
 			<h2 class="scores">1</h2>
 			<h3>FOULS</h3>
 			<h2 class="scores">2</h2>
-
 
 		</div>
 
@@ -66,16 +65,16 @@
 				var $messageBox2 = $('#message2');
 				var $scoreboard = $('#scoreboard');	
 
-				$messageForm.submit(function(e){					// vraag stellen in form
-				e.preventDefault();		
+				$messageForm.submit(function(e){					
+				e.preventDefault();								//geen refresh van pg
 				socket.emit('send tijd', $messageBox.val());
-				$messageBox.val('');								//geen refresh van pg
+				$messageBox.val('');								
 				socket.emit('send message', $messageBox2.val());
 				$messageBox2.val('');
 				});	
 
-				socket.on('load old msgs', function(docs){									//laden van berichten die voor het inloggen 
-				for(var i=0; i < docs.length; i++){									//er al waren
+				socket.on('load old msgs', function(docs){			//laden vanuit mongodb 
+				for(var i=0; i < docs.length; i++){									
 					displayMsg(docs[i]);
 				}
 				});
@@ -88,6 +87,30 @@
 					displayMsg(data);
 					});
 				});	
+
+				$(document).ready(function() {
+
+				    var socket = io.connect();
+
+				    $('#knop1').click(function() {
+				        socket.emit('click');
+				    });
+				    $('#knop2').click(function() {
+				        socket.emit('click2');
+				    });
+
+				    socket.on('changeColor', function() {
+				        $("#getal1").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor2', function() {
+				        $("#getal1").html(function(i, val){
+								return val*1-1
+						});
+				    });
+				});		
 			</script>
 </body>
 </html>
