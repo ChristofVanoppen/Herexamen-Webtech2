@@ -22,7 +22,6 @@ var scoreboardShema = mongoose.Schema({ //geen tables zoals sql maar in collecti
 
 var scoreboard = mongoose.model('Message', scoreboardShema);//maakt een message colelction
 
-
 app.get('/', function(req, res){
 	res.sendfile(__dirname + '/scoreboard.html');
 });
@@ -51,6 +50,14 @@ io.sockets.on('connection', function(socket){  // hier kome alle sockets.on
 		if(err) throw err;
 		socket.emit('load old msgs', docs);
 	});
+
+	socket.on('click', function(data){
+        io.sockets.emit('changeColor',data); 
+    });
+
+    socket.on('click2', function(data){
+        io.sockets.emit('changeColor2',data); 
+    });
 
 });
 
