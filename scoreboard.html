@@ -8,6 +8,7 @@
 
 </head>
 <body>
+
 	<div id="wrapper">
 
 		<div id="deel1">
@@ -22,19 +23,20 @@
 		</div>
 
 		<div id="deel2">
-			
-			<h2 class="scores">1</h2>
+			<div id="shots">
+			<h2 class="scores" id="getal3">1</h2>
 			<h3>TOTAL SHOTS</h3>
-			<h2 class="scores">2</h2>
-
-			<h2 class="scores">1</h2>
+			<h2 class="scores" id="getal4">1</h2>
+			</div>
+			<div id="fouls">
+			<h2 class="scores" id="getal5">1</h2>
 			<h3>FOULS</h3>
-			<h2 class="scores">2</h2>
-
+			<h2 class="scores" id="getal6">1</h2>
+			</div>
 		</div>
 
 		<div id="deel3">
-			<p>REALTIME UPDATES</p>
+			<h2>REALTIME UPDATES</h2>
 			<div id="scoreboard"></div>
 		</div>
 
@@ -45,36 +47,26 @@
 	<script src="/socket.io/socket.io.js"></script>		
 			<script>
 			
-				$("#buttonPlus1").click(function(){
-					$("#score1").html(function(i, val){
-						return val*1+1
-					});
 
-				});
-
-				$("#buttonMin1").click(function(){
-					$("#score1").html(function(i, val){
-						return val*1-1
-					});
-				});
 
 				jQuery(function($){
 				var socket = io.connect();
 				var $messageForm = $('#send-message');
 				var $messageBox = $('#message');
 				var $messageBox2 = $('#message2');
-				var $scoreboard = $('#scoreboard');	
-
-				$messageForm.submit(function(e){					
-				e.preventDefault();								//geen refresh van pg
+				var $scoreboard = $('#scoreboard');
+				/*var $score = $('#getal1');*/
+				
+				$messageForm.submit(function(e){					// vraag stellen in form
+				e.preventDefault();		
 				socket.emit('send tijd', $messageBox.val());
-				$messageBox.val('');								
+				$messageBox.val('');								//geen refresh van pg
 				socket.emit('send message', $messageBox2.val());
 				$messageBox2.val('');
 				});	
 
-				socket.on('load old msgs', function(docs){			//laden vanuit mongodb 
-				for(var i=0; i < docs.length; i++){									
+				socket.on('load old msgs', function(docs){				//laden van berichten die voor het inloggen 
+				for(var i=0; i < docs.length; i++){									//er al waren
 					displayMsg(docs[i]);
 				}
 				});
@@ -87,7 +79,7 @@
 					displayMsg(data);
 					});
 				});	
-
+					
 				$(document).ready(function() {
 
 				    var socket = io.connect();
@@ -98,18 +90,109 @@
 				    $('#knop2').click(function() {
 				        socket.emit('click2');
 				    });
+				    $('#knop3').click(function() {
+				        socket.emit('click3');
+				    });
+				    $('#knop4').click(function() {
+				        socket.emit('click4');
+				    });
+				    $('#knop5').click(function() {
+				        socket.emit('click5');
+				    });
+				    $('#knop6').click(function() {
+				        socket.emit('click6');
+				    });
+				    $('#knop7').click(function() {
+				        socket.emit('click7');
+				    });
+				    $('#knop8').click(function() {
+				        socket.emit('click8');
+				    });
+				    $('#knop9').click(function() {
+				        socket.emit('click9');
+				    });
+				    $('#knop10').click(function() {
+				        socket.emit('click10');
+				    });
+				    $('#knop11').click(function() {
+				        socket.emit('click11');
+				    });
+				    $('#knop12').click(function() {
+				        socket.emit('click12');
+				    });
 
-				    socket.on('changeColor', function() {
+				    socket.on('changeColor', function(data) {
 				        $("#getal1").html(function(i, val){
 								return val*1+1
 						});
 				    });
 
-				    socket.on('changeColor2', function() {
+				    socket.on('changeColor2', function(data) {
 				        $("#getal1").html(function(i, val){
 								return val*1-1
 						});
 				    });
+
+				    socket.on('changeColor3', function(data) {
+				        $("#getal2").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor4', function(data) {
+				        $("#getal2").html(function(i, val){
+								return val*1-1
+						});
+				    });
+
+				    socket.on('changeColor5', function(data) {
+				        $("#getal3").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor6', function(data) {
+				        $("#getal3").html(function(i, val){
+								return val*1-1
+						});
+				    });
+
+				    socket.on('changeColor7', function(data) {
+				        $("#getal4").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor8', function(data) {
+				        $("#getal4").html(function(i, val){
+								return val*1-1
+						});
+				    });
+				    socket.on('changeColor9', function(data) {
+				        $("#getal5").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor10', function(data) {
+				        $("#getal5").html(function(i, val){
+								return val*1-1
+						});
+				    });
+
+				    socket.on('changeColor11', function(data) {
+				        $("#getal6").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor12', function(data) {
+				        $("#getal6").html(function(i, val){
+								return val*1-1
+						});
+				    });
+
+				   
 				});		
 			</script>
 </body>
