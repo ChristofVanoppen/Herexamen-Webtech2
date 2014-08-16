@@ -22,6 +22,13 @@ var scoreboardShema = mongoose.Schema({ //geen tables zoals sql maar in collecti
 
 var scoreboard = mongoose.model('Message', scoreboardShema);//maakt een message colelction
 
+/*var scoreShema = mongoose.Schema({ //geen tables zoals sql maar in collections van documents
+	score: String,
+	created: {type: Date, default: Date.now}
+});
+
+var score = mongoose.model('Scores', scoreShema);//maakt een message colelction*/
+
 app.get('/', function(req, res){
 	res.sendfile(__dirname + '/scoreboard.html');
 });
@@ -52,13 +59,51 @@ io.sockets.on('connection', function(socket){  // hier kome alle sockets.on
 	});
 
 	socket.on('click', function(data){
-        io.sockets.emit('changeColor',data); 
+		io.sockets.emit('changeColor',data); 
     });
 
     socket.on('click2', function(data){
         io.sockets.emit('changeColor2',data); 
     });
 
+    socket.on('click3', function(data){
+		io.sockets.emit('changeColor3',data); 
+    });
+
+    socket.on('click4', function(data){
+        io.sockets.emit('changeColor4',data); 
+    });
+
+    socket.on('click5', function(data){
+		io.sockets.emit('changeColor5',data); 
+    });
+
+    socket.on('click6', function(data){
+        io.sockets.emit('changeColor6',data); 
+    });
+
+    socket.on('click7', function(data){
+		io.sockets.emit('changeColor7',data); 
+    });
+
+    socket.on('click8', function(data){
+        io.sockets.emit('changeColor8',data); 
+    });
+    socket.on('click9', function(data){
+		io.sockets.emit('changeColor9',data); 
+    });
+
+    socket.on('click10', function(data){
+        io.sockets.emit('changeColor10',data); 
+    });
+
+    socket.on('click11', function(data){
+		io.sockets.emit('changeColor11',data); 
+    });
+
+    socket.on('click12', function(data){
+        io.sockets.emit('changeColor12',data); 
+    });
 });
 
 
