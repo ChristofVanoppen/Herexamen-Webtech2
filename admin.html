@@ -12,33 +12,44 @@
 
 		<div id="deel1">
 			<img src="https://pbs.twimg.com/profile_images/437613241/belgie.gif" alt="belgie" id="belgie">
-			<button id="knop1" type="button">+</button>
-			<button id="knop2" type="button">-</button>
 			<h1>BELGIUM</h1>
 			<h2 class="scores" id="getal1">1</h2>
 			<h2 class="scores" id="getal2">1</h2>
 			<h1>BRAZIL</h1>
 			<img src="http://www.opverrereis.nl/attachments/Image/Brazilie-vlag.jpg?1379627077964" alt="brasilie" id="brasilie">
-			<button type="button">+</button>
-			<button type="button">-</button>
+
+		</div>
+
+		<div id="buttonrij1">
+			<button id="knop1" type="button">+</button>
+			<button id="knop2" type="button">-</button>
+			<button id="knop3" type="button">+</button>
+			<button id="knop4" type="button">-</button>
 		</div>
 
 		<div id="deel2">
-			
-			<h2 class="scores">1</h2>
+			<div id="shots">
+			<h2 class="scores" id="getal3">1</h2>
 			<h3>TOTAL SHOTS</h3>
-			<h2 class="scores">2</h2>
-			<button type="button">+</button>
-			<button type="button">-</button>
-			<h2 class="scores">1</h2>
+			<h2 class="scores" id="getal4">1</h2>
+			</div>
+			<button id="knop5" type="button">+</button>
+			<button id="knop6" type="button">-</button>
+			<button id="knop7" type="button">+</button>
+			<button id="knop8" type="button">-</button>
+			<div id="fouls">
+			<h2 class="scores" id="getal5">1</h2>
 			<h3>FOULS</h3>
-			<h2 class="scores">2</h2>
-			<button type="button">+</button>
-			<button type="button">-</button>
+			<h2 class="scores" id="getal6">1</h2>
+			</div>
+			<button id="knop9" type="button">+</button>
+			<button id="knop10" type="button">-</button>
+			<button id="knop11" type="button">+</button>
+			<button id="knop12" type="button">-</button>
 		</div>
 
 		<div id="deel3">
-			<p>REALTIME UPDATES</p>
+			<h2>REALTIME UPDATES</h2>
 			<div id="scoreboard"></div>
 			<form action="" id="send-message">
 			<input placeholder="text message" size="10" id="message" type="text"></input>
@@ -62,6 +73,7 @@
 				var $messageBox = $('#message');
 				var $messageBox2 = $('#message2');
 				var $scoreboard = $('#scoreboard');
+				/*var $score = $('#getal1');*/
 				
 				$messageForm.submit(function(e){					// vraag stellen in form
 				e.preventDefault();		
@@ -71,7 +83,7 @@
 				$messageBox2.val('');
 				});	
 
-				socket.on('load old msgs', function(docs){									//laden van berichten die voor het inloggen 
+				socket.on('load old msgs', function(docs){				//laden van berichten die voor het inloggen 
 				for(var i=0; i < docs.length; i++){									//er al waren
 					displayMsg(docs[i]);
 				}
@@ -96,18 +108,109 @@
 				    $('#knop2').click(function() {
 				        socket.emit('click2');
 				    });
+				    $('#knop3').click(function() {
+				        socket.emit('click3');
+				    });
+				    $('#knop4').click(function() {
+				        socket.emit('click4');
+				    });
+				    $('#knop5').click(function() {
+				        socket.emit('click5');
+				    });
+				    $('#knop6').click(function() {
+				        socket.emit('click6');
+				    });
+				    $('#knop7').click(function() {
+				        socket.emit('click7');
+				    });
+				    $('#knop8').click(function() {
+				        socket.emit('click8');
+				    });
+				    $('#knop9').click(function() {
+				        socket.emit('click9');
+				    });
+				    $('#knop10').click(function() {
+				        socket.emit('click10');
+				    });
+				    $('#knop11').click(function() {
+				        socket.emit('click11');
+				    });
+				    $('#knop12').click(function() {
+				        socket.emit('click12');
+				    });
 
-				    socket.on('changeColor', function() {
+				    socket.on('changeColor', function(data) {
 				        $("#getal1").html(function(i, val){
 								return val*1+1
 						});
 				    });
 
-				    socket.on('changeColor2', function() {
+				    socket.on('changeColor2', function(data) {
 				        $("#getal1").html(function(i, val){
 								return val*1-1
 						});
 				    });
+
+				    socket.on('changeColor3', function(data) {
+				        $("#getal2").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor4', function(data) {
+				        $("#getal2").html(function(i, val){
+								return val*1-1
+						});
+				    });
+
+				    socket.on('changeColor5', function(data) {
+				        $("#getal3").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor6', function(data) {
+				        $("#getal3").html(function(i, val){
+								return val*1-1
+						});
+				    });
+
+				    socket.on('changeColor7', function(data) {
+				        $("#getal4").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor8', function(data) {
+				        $("#getal4").html(function(i, val){
+								return val*1-1
+						});
+				    });
+				    socket.on('changeColor9', function(data) {
+				        $("#getal5").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor10', function(data) {
+				        $("#getal5").html(function(i, val){
+								return val*1-1
+						});
+				    });
+
+				    socket.on('changeColor11', function(data) {
+				        $("#getal6").html(function(i, val){
+								return val*1+1
+						});
+				    });
+
+				    socket.on('changeColor12', function(data) {
+				        $("#getal6").html(function(i, val){
+								return val*1-1
+						});
+				    });
+
+				   
 				});		
 			</script>
 </body>
