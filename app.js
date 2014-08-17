@@ -6,7 +6,8 @@ mongoose = require('mongoose');
 
 server.listen(3000);
 
-mongoose.connect('mongodb://localhost/scoreboard', function(err){
+
+mongoose.connect('mongodb://christof:vanoppenrs@kahana.mongohq.com:10052/scoreboard', function(err){
 	if(err){
 		console.log(err);
 	}else{
@@ -35,7 +36,7 @@ app.get('/', function(req, res){
 app.get('/admin.html', function(req, res){
 	res.sendfile(__dirname + '/admin.html');
 });
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/build'));
 
 io.sockets.on('connection', function(socket){  // hier kome alle sockets.on
 											
@@ -59,50 +60,50 @@ io.sockets.on('connection', function(socket){  // hier kome alle sockets.on
 	});
 
 	socket.on('click', function(data){
-		io.sockets.emit('changeColor',data); 
+		io.sockets.emit('changeScore',data); 
     });
 
     socket.on('click2', function(data){
-        io.sockets.emit('changeColor2',data); 
+        io.sockets.emit('changeScore2',data); 
     });
 
     socket.on('click3', function(data){
-		io.sockets.emit('changeColor3',data); 
+		io.sockets.emit('changeScore3',data); 
     });
 
     socket.on('click4', function(data){
-        io.sockets.emit('changeColor4',data); 
+        io.sockets.emit('changeScore4',data); 
     });
 
     socket.on('click5', function(data){
-		io.sockets.emit('changeColor5',data); 
+		io.sockets.emit('changeScore5',data); 
     });
 
     socket.on('click6', function(data){
-        io.sockets.emit('changeColor6',data); 
+        io.sockets.emit('changeScore6',data); 
     });
 
     socket.on('click7', function(data){
-		io.sockets.emit('changeColor7',data); 
+		io.sockets.emit('changeScore7',data); 
     });
 
     socket.on('click8', function(data){
-        io.sockets.emit('changeColor8',data); 
+        io.sockets.emit('changeScore8',data); 
     });
     socket.on('click9', function(data){
-		io.sockets.emit('changeColor9',data); 
+		io.sockets.emit('changeScore9',data); 
     });
 
     socket.on('click10', function(data){
-        io.sockets.emit('changeColor10',data); 
+        io.sockets.emit('changeScore10',data); 
     });
 
     socket.on('click11', function(data){
-		io.sockets.emit('changeColor11',data); 
+		io.sockets.emit('changeScore11',data); 
     });
 
     socket.on('click12', function(data){
-        io.sockets.emit('changeColor12',data); 
+        io.sockets.emit('changeScore12',data); 
     });
 });
 
